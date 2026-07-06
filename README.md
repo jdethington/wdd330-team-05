@@ -41,3 +41,17 @@ From here on you should follow this process with each of the Trello tasks you co
 - 10) Delete the old branch.
 - 11) Move the Trello card to the "Done" list.
 
+
+
+### Some git commands from the command line
+
+# - git status
+    show modified files in working directory, staged for your next commit
+# - git branch
+    list your branches. a * will appear next to the currently active branch
+# - git branch [branch-name]
+# - git switch -c [branch-name]
+    create a new branch at the current commit
+# - git switch [branch-name]
+    switch branches
+    
