@@ -25,3 +25,32 @@ _BYU-Pathway Worldwide improves lives through access to spiritually based, onlin
 
 
 
+#### Review the Development and Deployment Process
+
+From here on you should follow this process with each of the Trello tasks you complete throughout the course. You may want to copy or reference these task steps for future reference until it becomes a habit.
+
+1. Choose a Trello card, assign yourself to it, and move to "Doing".
+2. Pull any changes from your team's project.
+3. Make a branch.
+4. Complete the work.
+5. Lint and format the code.
+6. Commit and push.
+7. Make a pull request for your new branch.
+8. Let your team know there is a pull request waiting.
+9. Another team member should review the pull request in GitHub and, if everything looks good, Merge the request.
+10. Delete the old branch.
+11. Move the Trello card to the "Done" list.
+
+
+
+#### Some git commands from the command line
+
+- git status
+show modified files in working directory, staged for your next commit
+- git branch
+list your branches. a * will appear next to the currently active branch
+- git branch [branch-name]
+- git switch -c [branch-name]
+create a new branch at the current commit
+- git switch [branch-name]
+switch branches
