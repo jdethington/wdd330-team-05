@@ -44,6 +44,7 @@ From here on you should follow this process with each of the Trello tasks you co
 
 ---
 #### Some git commands from the command line
+[git cheat sheet](https://git-scm.com/cheat-sheet) https://git-scm.com/cheat-sheet
 
 - `git status` show modified files in working directory, staged for your next commit
 - `git branch` list your branches. a * will appear next to the currently active branch
