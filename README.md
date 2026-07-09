@@ -47,5 +47,10 @@ From here on you should follow this process with each of the Trello tasks you co
 
 - `git status` show modified files in working directory, staged for your next commit
 - `git branch` list your branches. a * will appear next to the currently active branch
+- `git branch --sort=-committerdate` List branches by most recently committed to
 - `git branch [branch-name]` or `git switch -c [branch-name]` create a new branch at the current commit
-- `git switch [branch-name]` switch branches
+- `git switch [branch-name]` or `git checkout [branch-name]` switch branches
+- `git branch -d [branch-name]` delete branch
+- `git commit - 'message'` Make a commit with message
+- `git push` Push the current branch to its remote "tracking branch"
+- `git pull` Fetch changes and then merge them into your current branch
