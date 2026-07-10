@@ -90,7 +90,7 @@ p {
   margin-top: -1.3em;
 }
 
-.logo--square > div {
+.logo--square>div {
   margin-top: -1.7em;
 }
 
@@ -129,6 +129,21 @@ button {
 
 .cart:hover svg {
   fill: gray;
+}
+
+.cart-count {
+  position: absolute;
+  top: 5px;
+  right: 2px;
+  background-color: var(--primary-color);
+  color: black;
+  border-radius: 50%;
+  padding: 1px 5px;
+  font-size: 0.8rem;
+}
+
+.hide {
+  display: none;
 }
 
 /* End cart icon styles */

@@ -7,6 +7,7 @@ const productId = getParam("product");
 
 const product = new ProductDetails(productId, dataSource);
 product.init();
+
 // console.log(dataSource.findProductById(productId));
 
 // add to cart button event handler
