@@ -66,7 +66,11 @@
           alt="Marmot Ajax tent"
         />
 
-        <p class="product-card__price">$199.99</p>
+        <div class="product-price">
+          <p id="productOriginalPrice" class="product-card__price product-card__price--original hidden"></p>
+          <p id="productPrice" class="product-card__price product-price__final">$199.99</p>
+        </div>
+        <p id="discountIndicator" class="discount-indicator hidden"></p>
 
         <p class="product__color">Pale Pumpkin/Terracotta</p>
 

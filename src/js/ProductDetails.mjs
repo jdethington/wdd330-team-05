@@ -1,5 +1,29 @@
 import { getLocalStorage,setLocalStorage } from './utils.mjs';
 
+export function getDiscountInfo(product) {
+  if (!product) return null;
+
+  const suggestedRetailPrice = Number(product.SuggestedRetailPrice);
+  const finalPrice = Number(product.FinalPrice);
+
+  if (Number.isNaN(suggestedRetailPrice) || Number.isNaN(finalPrice)) return null;
+  if (finalPrice >= suggestedRetailPrice) return null;
+
+  const amount = Number((suggestedRetailPrice - finalPrice).toFixed(2));
+
+  return {
+    amount,
+    message: `Save $${amount.toFixed(2)}!`
+  };
+}
+
+function formatCurrency(value) {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD'
+  }).format(value);
+}
+
 export default class ProductDetails {
   constructor(productId, dataSource, detailsTarget = '#product-details') {
     this.productId = productId;
@@ -41,8 +65,26 @@ export default class ProductDetails {
   productImage.src = product.Image;
   productImage.alt = product.NameWithoutBrand;
 
-  document.getElementById("productPrice").textContent = product.FinalPrice;
-  document.getElementById("productColor").textContent = product.Colors[0].ColorName;
+  const discountInfo = getDiscountInfo(product);
+  const productPrice = document.getElementById("productPrice");
+  const originalPrice = document.getElementById("productOriginalPrice");
+  const discountIndicator = document.getElementById("discountIndicator");
+
+  productPrice.textContent = formatCurrency(product.FinalPrice);
+
+  if (discountInfo) {
+    originalPrice.textContent = formatCurrency(product.SuggestedRetailPrice);
+    originalPrice.classList.remove("hidden");
+    discountIndicator.textContent = discountInfo.message;
+    discountIndicator.classList.remove("hidden");
+  } else {
+    originalPrice.textContent = "";
+    originalPrice.classList.add("hidden");
+    discountIndicator.textContent = "";
+    discountIndicator.classList.add("hidden");
+  }
+
+  document.getElementById("productColor").textContent = product.Colors?.[0]?.ColorName || "N/A";
   document.getElementById("productDesc").innerHTML = product.DescriptionHtmlSimple;
 
   document.getElementById("addToCart").dataset.id = product.Id;
