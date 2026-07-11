@@ -10,6 +10,21 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".mjs", ".cjs"]
+      }
+    }
+  },
+  "overrides": [
+    {
+      "files": ["vite.config.js"],
+      "rules": {
+        "import/no-unresolved": "off"
+      }
+    }
+  ],
   "rules": {
     "no-unused-vars": [
       1,
