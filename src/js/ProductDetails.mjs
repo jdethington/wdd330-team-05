@@ -1,48 +1,132 @@
-import { setLocalStorage } from './utils.mjs';
+
+import { getLocalStorage, setLocalStorage, cartSuperscript } from "./utils.mjs";
+
+export function getDiscountInfo(product) {
+  if (!product) return null;
+
+  const suggestedRetailPrice = Number(product.SuggestedRetailPrice);
+  const finalPrice = Number(product.FinalPrice);
+
+  if (Number.isNaN(suggestedRetailPrice) || Number.isNaN(finalPrice)) return null;
+  if (finalPrice >= suggestedRetailPrice) return null;
+
+  const amount = Number((suggestedRetailPrice - finalPrice).toFixed(2));
+
+  return {
+    amount,
+    message: `Save $${amount.toFixed(2)}!`
+  };
+}
+
+function formatCurrency(value) {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD'
+  }).format(value);
+}
+
 
 export default class ProductDetails {
-  constructor(productId, dataSource, detailsTarget = '#product-details') {
-    this.productId = productId;
-    this.dataSource = dataSource;
-    this.product = {};
-    this.detailsTarget = detailsTarget;
-    this.cartKey = 'cart';
-  }
 
-  async init() {
-    // fetch the product details before rendering
-    this.product = await this.dataSource.findProductById(this.productId);
-
-    // render the product details HTML
-    this.renderProductDetails();
-
-    // wire the Add to Cart button after rendering
-    const addButton = document.getElementById('addToCart');
-    if (addButton) {
-      addButton.addEventListener('click', this.addProductToCart.bind(this));
-    }
-  }
-
-  addProductToCart() {
-    const cart = JSON.parse(localStorage.getItem(this.cartKey)) || [];
-    cart.push(this.product);
-    setLocalStorage(this.cartKey, cart);
-  }
-
-  renderProductDetails() {
-    const container = document.querySelector(this.detailsTarget);
-    if (!container || !this.product) return;
-
-    container.innerHTML = `
-      <article class="product-details">
-        <img src="${this.product.image}" alt="${this.product.name}" class="product-details__image" />
-        <div class="product-details__info">
-          <h1 class="product-details__title">${this.product.name}</h1>
-          <p class="product-details__description">${this.product.description || ''}</p>
-          <p class="product-details__price">$${Number(this.product.price).toFixed(2)}</p>
-          <button id="addToCart" class="product-details__button">Add to Cart</button>
-        </div>
-      </article>
-    `;
-  }
+    constructor(productId, dataSource){
+        this.productId = productId;
+        this.product = {};
+        this.dataSource = dataSource;
+    }  
+    
+        async init() {
+            // use the datasource to get the details for the current product. findProductById will return a promise! use await or .then() to process it
+            this.product = await this.dataSource.findProductById(this.productId);
+            // the product details are needed before rendering the HTML
+            this.renderProductDetails();
+            // once the HTML is rendered, add a listener to the Add to Cart button
+            // Notice the .bind(this). This callback will not work if the bind(this) is missing. Review the readings from this week on "this" to understand why.
+         document
+             .getElementById("addToCart")
+             .addEventListener("click", this.addProductToCart.bind(this));
+            }
+        addProductToCart() {
+        const cartItems = getLocalStorage("so-cart") || [];
+        cartItems.push(this.product);
+            setLocalStorage("so-cart", cartItems);
+            cartSuperscript();
+        }
+        renderProductDetails() {
+        const mainElement = document.querySelector("main");
+        if (mainElement) {
+        mainElement.innerHTML = productDetailsTemplate(this.product);
+        }
 }
+    
+}
+ function productDetailsTemplate(product) {
+  document.querySelector("h2").textContent = product.Brand.Name;
+  document.querySelector("h3").textContent = product.NameWithoutBrand;
+
+  const productImage = document.getElementById("productImage");
+  productImage.src = product.Image;
+  productImage.alt = product.NameWithoutBrand;
+
+  const discountInfo = getDiscountInfo(product);
+  const productPrice = document.getElementById("productPrice");
+  const originalPrice = document.getElementById("productOriginalPrice");
+  const discountIndicator = document.getElementById("discountIndicator");
+
+  productPrice.textContent = formatCurrency(product.FinalPrice);
+
+  if (discountInfo) {
+    originalPrice.textContent = formatCurrency(product.SuggestedRetailPrice);
+    originalPrice.classList.remove("hidden");
+    discountIndicator.textContent = discountInfo.message;
+    discountIndicator.classList.remove("hidden");
+  } else {
+    originalPrice.textContent = "";
+    originalPrice.classList.add("hidden");
+    discountIndicator.textContent = "";
+    discountIndicator.classList.add("hidden");
+  }
+
+  document.getElementById("productColor").textContent = product.Colors?.[0]?.ColorName || "N/A";
+  document.getElementById("productDesc").innerHTML = product.DescriptionHtmlSimple;
+
+  document.getElementById("addToCart").dataset.id = product.Id;
+}
+
+
+
+//         function productDetailsTemplate(product) {
+//         const brandName = product.Brand ? product.Brand.Name : "Sleep Outside";
+//         const colorName = (product.Colors && product.Colors[0]) ? product.Colors[0].ColorName : "Standard";
+
+//         return `<section class="product-detail">
+//         <h3>${brandName}</h3>
+//         <h2 class="divider">${product.NameWithoutBrand}</h2>
+//         <img class="divider" id="productImage" src="${product.Image}" alt="${product.NameWithoutBrand}" />
+//         <p id="productPrice" class="product-card__price">$${product.FinalPrice}</p>
+//         <p id="productColor" class="product__color">${colorName}</p>
+//         <p id="productDesc" class="product__description">${product.DescriptionHtmlSimple}</p>
+//         <div class="product-detail__add">
+//         <button id="addToCart" data-id="${product.Id}">Add to Cart</button>
+//         </div>
+//         </section>`;
+// }
+
+// ************* Alternative Display Product Details Method *******************
+// function productDetailsTemplate(product) {
+//   return `<section class="product-detail"> <h3>${product.Brand.Name}</h3>
+//     <h2 class="divider">${product.NameWithoutBrand}</h2>
+//     <img
+//       class="divider"
+//       src="${product.Image}"
+//       alt="${product.NameWithoutBrand}"
+//     />
+//     <p class="product-card__price">$${product.FinalPrice}</p>
+//     <p class="product__color">${product.Colors[0].ColorName}</p>
+//     <p class="product__description">
+//     ${product.DescriptionHtmlSimple}
+//     </p>
+//     <div class="product-detail__add">
+//       <button id="addToCart" data-id="${product.Id}">Add to Cart</button>
+//     </div></section>`;
+// }
+
