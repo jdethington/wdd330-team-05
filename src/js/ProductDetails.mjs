@@ -1,4 +1,30 @@
+
 import { getLocalStorage, setLocalStorage, cartSuperscript } from "./utils.mjs";
+
+export function getDiscountInfo(product) {
+  if (!product) return null;
+
+  const suggestedRetailPrice = Number(product.SuggestedRetailPrice);
+  const finalPrice = Number(product.FinalPrice);
+
+  if (Number.isNaN(suggestedRetailPrice) || Number.isNaN(finalPrice)) return null;
+  if (finalPrice >= suggestedRetailPrice) return null;
+
+  const amount = Number((suggestedRetailPrice - finalPrice).toFixed(2));
+
+  return {
+    amount,
+    message: `Save $${amount.toFixed(2)}!`
+  };
+}
+
+function formatCurrency(value) {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD'
+  }).format(value);
+}
+
 
 export default class ProductDetails {
 
@@ -33,23 +59,57 @@ export default class ProductDetails {
 }
     
 }
+ function productDetailsTemplate(product) {
+  document.querySelector("h2").textContent = product.Brand.Name;
+  document.querySelector("h3").textContent = product.NameWithoutBrand;
 
-        function productDetailsTemplate(product) {
-        const brandName = product.Brand ? product.Brand.Name : "Sleep Outside";
-        const colorName = (product.Colors && product.Colors[0]) ? product.Colors[0].ColorName : "Standard";
+  const productImage = document.getElementById("productImage");
+  productImage.src = product.Image;
+  productImage.alt = product.NameWithoutBrand;
 
-        return `<section class="product-detail">
-        <h3>${brandName}</h3>
-        <h2 class="divider">${product.NameWithoutBrand}</h2>
-        <img class="divider" id="productImage" src="${product.Image}" alt="${product.NameWithoutBrand}" />
-        <p id="productPrice" class="product-card__price">$${product.FinalPrice}</p>
-        <p id="productColor" class="product__color">${colorName}</p>
-        <p id="productDesc" class="product__description">${product.DescriptionHtmlSimple}</p>
-        <div class="product-detail__add">
-        <button id="addToCart" data-id="${product.Id}">Add to Cart</button>
-        </div>
-        </section>`;
+  const discountInfo = getDiscountInfo(product);
+  const productPrice = document.getElementById("productPrice");
+  const originalPrice = document.getElementById("productOriginalPrice");
+  const discountIndicator = document.getElementById("discountIndicator");
+
+  productPrice.textContent = formatCurrency(product.FinalPrice);
+
+  if (discountInfo) {
+    originalPrice.textContent = formatCurrency(product.SuggestedRetailPrice);
+    originalPrice.classList.remove("hidden");
+    discountIndicator.textContent = discountInfo.message;
+    discountIndicator.classList.remove("hidden");
+  } else {
+    originalPrice.textContent = "";
+    originalPrice.classList.add("hidden");
+    discountIndicator.textContent = "";
+    discountIndicator.classList.add("hidden");
+  }
+
+  document.getElementById("productColor").textContent = product.Colors?.[0]?.ColorName || "N/A";
+  document.getElementById("productDesc").innerHTML = product.DescriptionHtmlSimple;
+
+  document.getElementById("addToCart").dataset.id = product.Id;
 }
+
+
+
+//         function productDetailsTemplate(product) {
+//         const brandName = product.Brand ? product.Brand.Name : "Sleep Outside";
+//         const colorName = (product.Colors && product.Colors[0]) ? product.Colors[0].ColorName : "Standard";
+
+//         return `<section class="product-detail">
+//         <h3>${brandName}</h3>
+//         <h2 class="divider">${product.NameWithoutBrand}</h2>
+//         <img class="divider" id="productImage" src="${product.Image}" alt="${product.NameWithoutBrand}" />
+//         <p id="productPrice" class="product-card__price">$${product.FinalPrice}</p>
+//         <p id="productColor" class="product__color">${colorName}</p>
+//         <p id="productDesc" class="product__description">${product.DescriptionHtmlSimple}</p>
+//         <div class="product-detail__add">
+//         <button id="addToCart" data-id="${product.Id}">Add to Cart</button>
+//         </div>
+//         </section>`;
+// }
 
 // ************* Alternative Display Product Details Method *******************
 // function productDetailsTemplate(product) {
@@ -69,3 +129,4 @@ export default class ProductDetails {
 //       <button id="addToCart" data-id="${product.Id}">Add to Cart</button>
 //     </div></section>`;
 // }
+
