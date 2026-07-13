@@ -19,9 +19,9 @@ export function getDiscountInfo(product) {
 }
 
 function formatCurrency(value) {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD'
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD"
   }).format(value);
 }
 
