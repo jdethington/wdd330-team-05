@@ -1,5 +1,6 @@
 import { renderListWithTemplate } from "./utils.mjs";
 
+// The class "ProductList"
 export default class ProductList {
     constructor(category, dataSource, listElement) {
         this.category = category;
@@ -19,6 +20,7 @@ export default class ProductList {
     }
 }
 
+// Template used to display product
 function productCardTemplate(product) {
     return `
         <li class="product-card">

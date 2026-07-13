@@ -10,6 +10,21 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".mjs", ".cjs"]
+      }
+    }
+  },
+  "overrides": [
+    {
+      "files": ["vite.config.js"],
+      "rules": {
+        "import/no-unresolved": "off"
+      }
+    }
+  ],
   "rules": {
     "no-unused-vars": [
       1,
@@ -25,7 +40,13 @@
       }
     ],
     "no-console": 1,
-    "quotes": ["error", "double", { "allowTemplateLiterals": true }],
+    "quotes": [
+      "error",
+      "double",
+      {
+        "allowTemplateLiterals": true
+      }
+    ],
     "func-names": 0,
     "space-unary-ops": 2,
     "space-in-parens": "error",

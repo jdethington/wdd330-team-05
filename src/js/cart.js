@@ -1,5 +1,6 @@
 import { getLocalStorage, setLocalStorage } from "./utils.mjs"; // Added setLocalStorage
 
+// If items in cart - Displays(Renders) each item.  If cart empty - Display "Cart Empty"
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart") || [];
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
@@ -13,6 +14,7 @@ function renderCartContents() {
   }
 }
 
+// This is how each "item" in the cart will be displayed(Rendered) on the page
 function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
   <span class="cart-card__remove" data-id="${item.Id}">x</span>
@@ -34,6 +36,7 @@ function cartItemTemplate(item) {
   return newItem;
 }
 
+// Removes an item from the cart
 function removeFromCart(id) {
   const cartItems = getLocalStorage("so-cart") || [];
 
@@ -45,12 +48,13 @@ function removeFromCart(id) {
     renderCartContents();
   }
 }
-
-renderCartContents();
-
+// event listener to remove item on "click"
 document.querySelector(".product-list").addEventListener("click", (event) => {
   if (event.target.classList.contains("cart-card__remove")) {
     const productId = event.target.getAttribute("data-id");
     removeFromCart(productId);
   }
 });
+
+// Calls the function
+renderCartContents();
