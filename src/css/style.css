@@ -90,6 +90,7 @@ p {
   margin-top: -1.3em;
 }
 
+/* Why does this keep switching ".logo--square>div {" */
 .logo--square > div {
   margin-top: -1.7em;
 }
@@ -123,7 +124,8 @@ button {
   text-align: center;
 }
 
-.cart svg {
+.cart svg, 
+.cart img {
   width: 25px;
 }
 
@@ -142,7 +144,7 @@ button {
   font-size: 0.8rem;
 }
 
-.hide {
+.hide, .hidden {
   display: none;
 }
 
@@ -249,9 +251,9 @@ button {
   font-weight: 700;
 }
 
-.hidden {
+/* .hidden {
   display: none;
-}
+} */
 
 /* Start cart list card styles */
 .cart-card {
@@ -291,9 +293,9 @@ button {
   grid-column: 3;
 }
 
-.hide {
+/* .hide {
   display: none;
-}
+} */
 
 @media screen and (min-width: 500px) {
   body {
