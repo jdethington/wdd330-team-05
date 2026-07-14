@@ -7,3 +7,5 @@
 // const productList = new ProductList("tents", dataSource, element);
 
 // productList.init();
+import { cartSuperscript } from "./utils.mjs";
+cartSuperscript();
