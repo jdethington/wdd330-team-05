@@ -1,8 +1,8 @@
-import { getParam } from "./utils.mjs";
+import { getParam, loadHeaderFooter } from "./utils.mjs";
 import ProductData from "./ProductData.mjs";
 import ProductList from "./ProductList.mjs";
 
-// loadHeaderFooter();
+loadHeaderFooter();
 
 const category = getParam("category");
 // first create an instance of the ProductData class.
