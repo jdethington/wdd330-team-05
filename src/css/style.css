@@ -124,7 +124,7 @@ button {
   text-align: center;
 }
 
-.cart svg, 
+.cart svg,
 .cart img {
   width: 25px;
 }
@@ -144,7 +144,8 @@ button {
   font-size: 0.8rem;
 }
 
-.hide, .hidden {
+.hide,
+.hidden {
   display: none;
 }
 
