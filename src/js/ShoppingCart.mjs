@@ -17,6 +17,16 @@ export default class ShoppingCart {
                 this.removeFromCart(productId);
             }
         })
+
+        // Event listener for quantity changes
+        this.listElement.addEventListener("change", (event) => {
+            if (event.target.classList.contains("cart-qty-input")) {
+                const productId = event.target.getAttribute("data-id");
+                const newQty = parseInt(event.target.value);
+
+                this.updateQuantity(productId, newQty);
+            }
+        });
     }
 
     // If items in cart - Displays (Renders) each item.  If cart empty - Display "Cart Empty"
@@ -30,7 +40,7 @@ export default class ShoppingCart {
 
         } else {
             renderListWithTemplate(cartItemTemplate, this.listElement, cartItems, "afterbegin", true);
-            const total = cartItems.reduce((sum, item) => sum + item.FinalPrice, 0);
+            const total = cartItems.reduce((sum, item) => sum + item.FinalPrice * (item.quantity || 1), 0).toFixed(2);
             document.querySelector(".cart-total").innerHTML = `Total: $${total}`;
             document.querySelector(".cart-footer").classList.remove("hide");
         }
@@ -49,6 +59,18 @@ export default class ShoppingCart {
             this.renderCartContents();
         }
     }
+
+    updateQuantity(id, newQty) {
+        const cartItems = getLocalStorage("so-cart") || [];
+
+        const item = cartItems.find((item) => item.Id === id);
+        if (!item) return;
+
+        item.quantity = newQty;
+
+        setLocalStorage("so-cart", cartItems);
+        this.renderCartContents();
+    }
 }
 
 // This is how each "item" in the cart will be displayed (Rendered) on the page
@@ -66,7 +88,17 @@ function cartItemTemplate(item) {
     <h2 class="card__name">${item.Name}</h2>
   </a>
   <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: 1</p>
+  <label class="cart-card__quantity"> 
+    Quantity: 
+    <input 
+    type="number"
+    min="1"
+    value="${item.quantity || 1}"
+    class="cart-qty-input"
+    data-id="${item.Id}"
+    >
+  
+  </label>
   <p class="cart-card__price">$${item.FinalPrice}</p>
 </li>`;
 
