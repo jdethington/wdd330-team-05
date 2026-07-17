@@ -1,6 +1,16 @@
 [
   {
     "message": "This is only a test alert message. Please ignore.",
+    "background": "red",
+    "color": "white"
+  },
+  {
+    "message": "This is only a test alert message. Please ignore.",
+    "background": "green",
+    "color": "white"
+  },
+  {
+    "message": "This is only a test alert message. Please ignore.",
     "background": "darkblue",
     "color": "white"
   }
