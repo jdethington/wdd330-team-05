@@ -22,7 +22,9 @@ export default class ProductDetails {
 
   addProductToCart() {
     const cartItems = getLocalStorage("so-cart") || [];
-    cartItems.push(this.product);
+    const productToAdd = { ...this.product, quantity: 1 };
+
+    cartItems.push(productToAdd);
     setLocalStorage("so-cart", cartItems);
     cartSuperscript();
   }
@@ -63,8 +65,11 @@ function formatCurrency(value) {
 
 // Returns a template for the product to be displayed
 function productDetailsTemplate(product) {
+    console.log("Product: ",product);
+
   const brandName = product.Brand ? product.Brand.Name : "Sleep Outside";
   const colorName = (product.Colors && product.Colors[0]) ? product.Colors[0].ColorName : "Standard";
+  const image = product.Images.PrimaryLarge;
 
   const discountInfo = getDiscountInfo(product);
   // If "FinalPrice" < "SuggestedRetailPrice" = Display discount
@@ -75,7 +80,7 @@ function productDetailsTemplate(product) {
     <section class="product-detail">
       <h3>${brandName}</h3>
       <h2 class="divider">${product.NameWithoutBrand}</h2>
-      <img class="divider" id="productImage" src="${product.Image}" alt="${product.NameWithoutBrand}" />
+      <img class="divider" id="productImage" src="${image}" alt="${product.NameWithoutBrand}" />
 
       <p id="productPrice" class="product-card__price">${finalPrice}</p>
       <p id="productOriginalPrice" class="product-card__price">MSRP: ${originalPrice}</p>
