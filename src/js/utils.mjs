@@ -46,14 +46,18 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
 // adding a superscript over the backpack with the number of items in the cart
 export function cartSuperscript() {
   const cartItems = getLocalStorage("so-cart") || [];
-  const superscript = cartItems.length;
+  let superscript = 0;
+  if (Array.isArray(cartItems)) {
+    cartItems.forEach(item => {
+      superscript += (item && typeof item.quantity === 'number') ? item.quantity : 1;
+    });
+  }
   const badge = document.querySelector(".cart-count");
   if (badge) {
-    if (superscript !== 0) {
+    if (superscript > 0) {
       badge.innerHTML = superscript;
       badge.classList.remove("hide");
-    }
-    else {
+    } else {
       badge.classList.add("hide");
     }
   }
