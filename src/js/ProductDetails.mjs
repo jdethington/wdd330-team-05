@@ -72,11 +72,9 @@ function formatCurrency(value) {
 
 // Returns a template for the product to be displayed
 function productDetailsTemplate(product) {
-    console.log("Product: ",product);
-
   const brandName = product.Brand ? product.Brand.Name : "Sleep Outside";
   const colorName = (product.Colors && product.Colors[0]) ? product.Colors[0].ColorName : "Standard";
-  const image = product.Images.PrimaryLarge;
+  const image = product.Images?.PrimaryLarge || product.Image;
 
   const discountInfo = getDiscountInfo(product);
   // If "FinalPrice" < "SuggestedRetailPrice" = Display discount
@@ -106,7 +104,7 @@ function productDetailsTemplate(product) {
     <section class="product-detail">
       <h3>${brandName}</h3>
       <h2 class="divider">${product.NameWithoutBrand}</h2>
-      <img class="divider" id="productImage" src="${product.Image}" alt="${product.NameWithoutBrand}" />
+      <img class="divider" id="productImage" src="${image}" alt="${product.NameWithoutBrand}" />
       <p id="productPrice" class="product-card__price">$${product.FinalPrice}</p>
       <p id="productColor" class="product__color">${colorName}</p>
       <p id="productDesc" class="product__description">${product.DescriptionHtmlSimple}</p>
