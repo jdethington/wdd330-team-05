@@ -288,6 +288,27 @@ button {
   padding: 1em;
   max-width: 500px;
   margin: auto;
+  position: relative;
+}
+
+
+.discount-flag {
+    position: absolute;
+
+    top: 80px;
+    left: 20px;
+
+    background: rgb(100, 20, 220);
+    color: white;
+
+    padding: 8px 15px;
+
+    font-size: 1rem;
+    font-weight: bold;
+
+    border-radius: 5px;
+
+    z-index: 100;
 }
 
 .product-detail img {

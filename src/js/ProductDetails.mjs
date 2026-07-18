@@ -62,6 +62,8 @@ export function getDiscountInfo(product) {
   };
 }
 
+
+
 // Returns a number in US currency format "$12.34"
 function formatCurrency(value) {
   return new Intl.NumberFormat("en-US", {
@@ -72,11 +74,23 @@ function formatCurrency(value) {
 
 // Returns a template for the product to be displayed
 function productDetailsTemplate(product) {
+  console.log(product)
   const brandName = product.Brand ? product.Brand.Name : "Sleep Outside";
   const colorName = (product.Colors && product.Colors[0]) ? product.Colors[0].ColorName : "Standard";
   const image = product.Images?.PrimaryLarge || product.Image;
 
   const discountInfo = getDiscountInfo(product);
+  console.log("Suggested:", product.SuggestedRetailPrice);
+  console.log("Final:", product.FinalPrice);
+  console.log("Discount:", discountInfo);
+  const discountFlag = discountInfo 
+  ? `
+    <div class = "discount-flag">
+       SAVE ${formatCurrency(discountInfo.amount)}
+    </div>
+    `
+    :"";
+  
   // If "FinalPrice" < "SuggestedRetailPrice" = Display discount
   if (discountInfo) {
     const finalPrice = formatCurrency(product.FinalPrice);
@@ -85,12 +99,12 @@ function productDetailsTemplate(product) {
     <section class="product-detail">
       <h3>${brandName}</h3>
       <h2 class="divider">${product.NameWithoutBrand}</h2>
+
+      ${discountFlag}
       <img class="divider" id="productImage" src="${image}" alt="${product.NameWithoutBrand}" />
 
       <p id="productPrice" class="product-card__price">${finalPrice}</p>
       <p id="productOriginalPrice" class="product-card__price">MSRP: ${originalPrice}</p>
-      <p id="discountIndicator" class="product-card__price">${discountInfo.message}</p>
-      
       <p id="productColor" class="product__color">${colorName}</p>
       <p id="productDesc" class="product__description">${product.DescriptionHtmlSimple}</p>
       <div class="product-detail__add">
@@ -104,6 +118,7 @@ function productDetailsTemplate(product) {
     <section class="product-detail">
       <h3>${brandName}</h3>
       <h2 class="divider">${product.NameWithoutBrand}</h2>
+
       <img class="divider" id="productImage" src="${image}" alt="${product.NameWithoutBrand}" />
       <p id="productPrice" class="product-card__price">$${product.FinalPrice}</p>
       <p id="productColor" class="product__color">${colorName}</p>
@@ -114,6 +129,8 @@ function productDetailsTemplate(product) {
     </section>
     `;
   }
+
+ 
 }
 
 // ************* Alternative Display Product Details Method *******************

@@ -1,5 +1,7 @@
 import { renderListWithTemplate } from "./utils.mjs";
 
+import { getDiscountInfo } from "./ProductDetails.mjs";
+
 // The class "ProductList"
 export default class ProductList {
     constructor(category, dataSource, listElement) {
@@ -54,9 +56,12 @@ function formatCategory(category) {
 function productCardTemplate(product) {
     const image = product.Images?.PrimaryMedium || product.Image;
     const id = product.Id;
+    const discountInfo = getDiscountInfo(product);
 
+    
     return `
         <li class="product-card">
+
         <a href="/product_pages/index.html?product=${id}">
             <img src="${image}" alt="${product.Name}">
             <h3 class="card__brand">${product.Brand.Name}</h3>
