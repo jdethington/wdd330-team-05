@@ -91,7 +91,7 @@ p {
 }
 
 /* Why does this keep switching ".logo--square>div {" */
-.logo--square > div {
+.logo--square>div {
   margin-top: -1.7em;
 }
 
@@ -160,6 +160,7 @@ button {
   padding: 1rem;
   position: relative;
 }
+
 .delete-button {
   background: none;
   position: absolute;
@@ -168,6 +169,7 @@ button {
   margin: 0;
   padding: 0.57rem 0.93rem;
 }
+
 /* End Alert Lists styles */
 
 .mission {
@@ -351,6 +353,12 @@ button {
   grid-row: 2;
   grid-column: 3;
 }
+
+/* product_listing sorter */
+.sort-by {
+  text-align: right;
+}
+
 
 /* .hide {
   display: none;
