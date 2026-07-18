@@ -104,6 +104,7 @@ button {
   padding: 0.5em 2em;
   background-color: var(--secondary-color);
   color: white;
+  border-radius: 0.5em;
   margin: auto;
   display: block;
   border: 0;
@@ -150,6 +151,24 @@ button {
 }
 
 /* End cart icon styles */
+
+/* Alert Lists styles */
+.alert {
+  margin: 1rem auto;
+  max-width: 75%;
+  /* margin: 0.5rem; */
+  padding: 1rem;
+  position: relative;
+}
+.delete-button {
+  background: none;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  margin: 0;
+  padding: 0.57rem 0.93rem;
+}
+/* End Alert Lists styles */
 
 .mission {
   position: absolute;

@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "lastSeen": 0,
+    "removed": false,
+    "message": "This is only a test alert message. Please ignore.",
+    "background": "red",
+    "color": "white"
+  },
+  {
+    "id": 2,
+    "lastSeen": 0,
+    "removed": false,
+    "message": "This is only a test alert message. Please ignore.",
+    "background": "green",
+    "color": "white"
+  },
+  {
+    "id": 3,
+    "lastSeen": 0,
+    "removed": false,
+    "message": "This is only a test alert message. Please ignore.",
+    "background": "darkblue",
+    "color": "white"
+  }
+]
