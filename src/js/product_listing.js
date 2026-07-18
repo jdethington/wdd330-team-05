@@ -13,3 +13,12 @@ const element = document.querySelector(".product-list");
 const listing = new ProductList(category, dataSource, element);
 // finally call the init method to show the products
 listing.init();
+
+// sort selector on product list page
+const sortSelect = document.querySelector("#sort-select");
+
+sortSelect.addEventListener("change", (e) => {
+    const criteria = e.target.value;
+    listing.sortList(criteria);
+});
+

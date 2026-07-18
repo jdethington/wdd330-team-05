@@ -6,20 +6,37 @@ export default class ProductList {
         this.category = category;
         this.dataSource = dataSource;
         this.listElement = listElement;
+        this.products = [];
     }
 
     async init() {
         const list = await this.dataSource.getData(this.category);
-        // console.log(list);
+        this.products = list; // make a copy so we can use it for sorting
+        // console.log(this.products);
         this.renderList(list);
         document.querySelector(".title").textContent = this.category;
     }
+
     renderList(list) {
         // const htmlStrings = list.map(productCardTemplate);
         // this.listElement.insertAdjacentHTML("afterbegin", htmlStrings.join(""));
         renderListWithTemplate(productCardTemplate, this.listElement, list, "afterbegin", true);
     }
+
+    sortList(criteria) {
+        const sorted = [...this.products].sort((a, b) => {
+            if (criteria === "price") {
+                return a.FinalPrice - b.FinalPrice;
+            }
+            else {
+                return a.NameWithoutBrand.localeCompare(b.NameWithoutBrand);
+            }
+        });
+        this.listElement.innerHTML = "";
+        this.renderList(sorted);
+    }
 }
+
 
 // Template used to display product
 function productCardTemplate(product) {
@@ -36,5 +53,5 @@ function productCardTemplate(product) {
             </a>
             </li>
         `;
-    }
-        // <h2 class="card__name">${product.DescriptionHtmlSimple}</h2>
+}
+// <h2 class="card__name">${product.DescriptionHtmlSimple}</h2>

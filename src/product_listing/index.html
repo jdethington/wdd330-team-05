@@ -1,21 +1,30 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sleep Outside | Product Listing</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <script type="module" src="/js/product_listing.js"></script>
-  </head>
 
-  <body>
-    <header class="divider" id="main-header"></header>
-    <main class="divider">
-      <section id="product-list" class="products">
-        <h2>Top Products: <span class="title highlight"></span></h2>
-        <ul class="product-list"></ul>
-      </section>
-    </main>
-    <footer id="main-footer"></footer>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sleep Outside | Product Listing</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <script type="module" src="/js/product_listing.js"></script>
+</head>
+
+<body>
+  <header class="divider" id="main-header"></header>
+  <main class="divider">
+    <section id="product-list" class="products">
+      <h2>Top Products: <span class="title highlight"></span></h2>
+      <div class="sort-by">
+      <h3>Sort by</h3>
+      <select id="sort-select">
+        <option value="name">Name (A-Z)</option>
+        <option value="price">Price (Low to High)</option>
+      </select>
+      </div>
+      <ul class="product-list"></ul>
+    </section>
+  </main>
+  <footer id="main-footer"></footer>
+</body>
+
 </html>
