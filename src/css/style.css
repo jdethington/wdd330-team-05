@@ -234,6 +234,10 @@ button {
   padding: 1rem;
 }
 
+.display-products img {
+    margin-left: 100px;
+}
+
 .product-list {
   display: flex;
   flex-flow: row wrap;
@@ -244,6 +248,15 @@ button {
 .product-list a {
   text-decoration: none;
   color: var(--dark-grey);
+}
+
+  .product-list .sort-select {
+   
+  border-radius: 15px;
+  border-style: double;
+  border-width: 10px;
+  box-sizing: border-box;
+
 }
 
 /* Styles for product lists */
@@ -275,6 +288,27 @@ button {
   padding: 1em;
   max-width: 500px;
   margin: auto;
+  position: relative;
+}
+
+
+.discount-flag {
+    position: absolute;
+
+    top: 80px;
+    left: 20px;
+
+    background: rgb(100, 20, 220);
+    color: white;
+
+    padding: 8px 15px;
+
+    font-size: 1rem;
+    font-weight: bold;
+
+    border-radius: 5px;
+
+    z-index: 100;
 }
 
 .product-detail img {
