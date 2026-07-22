@@ -44,9 +44,10 @@ function packageItems(items) {
       id: item.Id,
       price: item.FinalPrice,
       name: item.Name,
-      quantity: 1,
+      quantity: item.quantity,
     };
   });
+  console.log(simplifiedItems);
   return simplifiedItems;
 }
 
@@ -133,6 +134,10 @@ export default class CheckoutProcess {
     try {
       const response = await services.checkout(order);
       console.log(response);
+      if (response) {
+        localStorage.removeItem("so-cart");
+        window.location.href = "success.html";
+      }
     } catch (err) {
       console.log(err);
     }
