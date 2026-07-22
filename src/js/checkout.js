@@ -1,5 +1,5 @@
 import CheckoutProcess from "./CheckoutProcess.mjs";
-import { alertMessage, loadHeaderFooter } from "./utils.mjs";
+import { loadHeaderFooter } from "./utils.mjs";
 
 loadHeaderFooter();
 
