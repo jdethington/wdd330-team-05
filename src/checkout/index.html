@@ -1,26 +1,152 @@
 <!doctype html>
 
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <meta charset="UTF-8" />
 
-    <title>Sleep Outside | Checkout</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="/css/style.css" />
-    <script src="../js/checkout.js" type="module"></script>
-  </head>
+  <title>Sleep Outside | Checkout</title>
 
-  <body>
-    <header class="divider" id="main-header"></header>
+  <link rel="stylesheet" href="/css/style.css" />
+  <script src="../js/checkout.js" type="module"></script>
+</head>
 
-    <main class="divider">
-      <section class="products">
-        <h2>Review & Place your Order</h2>
-      </section>
-    </main>
+<body>
+  <header class="divider" id="main-header"></header>
 
-    <footer id="main-footer"></footer>
-  </body>
+  <!-- <main class="divider">
+    <section class="products">
+      <h2>Review & Place your Order</h2>
+      <div class="checkout">
+        <form id="name">
+          <fieldset>
+            <legend>Information</legend>
+            <fieldset>
+              <legend> Name </legend>
+              <label>First <input autofocus type="text" name="fname" autocomplete="given-name" title="Your First Name"
+                  required></label>
+              <label>Last <input type="text" name="lname" autocomplete="family-name" title="Your Last Name"
+                  required></label>
+            </fieldset>
+            <fieldset>
+              <legend>Address</legend>
+              <label>Street <input type="text" name="street" autocomplete="address-level1" title="Street"
+                  required></label>
+              <label>City <input type="text" name="city" autocomplete="address-level2" title="City" required></label>
+              <label>State <input type="text" name="state" autocomplete="address-level3" title="State" required></label>
+              <label>Zip Code <input type="text" name="zip" autocomplete="address-level4" title="Zip Code"
+                  required></label>
+            </fieldset>
+            <fieldset>
+              <legend>Payment</legend>
+              <label>Credit Card Number <input type="text" name="cc" autocomplete="cc-number" title="Credit Card Number"
+                  required></label>
+              <label>Expiration Date <input type="text" name="cc-exp" autocomplete="cc-exp" title="Expiration Date"
+                  required></label>
+              <label>Security Code <input type="text" name="cc-code" autocomplete="cc-csc" title="Security Code"
+                  required></label>
+            </fieldset>
+            <button type="submit">Get My Stuff</button>
+          </fieldset>
+        </form>
+
+        <fieldset>
+          <legend>Order Summary</legend>
+          <div class="money">
+
+            <div class="divider">
+              <p>Items </p>
+              <p id="num-items">1</p>
+            </div>
+
+            <div class="divider">
+              <p>Subtotal </p>
+              <p id="subtotal">$00.00</p>
+            </div>
+
+            <div class="divider">
+              <p>Tax </p>
+              <p id="tax">$00.00</p>
+            </div>
+
+            <div class="divider">
+              <p>Shipping Estimate </p>
+              <p id="shipping">$00.00</p>
+            </div>
+
+            <div class="divider">
+              <p>Order Total </p>
+              <p id="total">$00.00</p>
+            </div>
+
+          </div>
+        </fieldset>
+
+      </div>
+    </section>
+  </main> -->
+
+  <main class="divider checkout">
+    <h2>Review & Place your Order</h2>
+    <section class="checkout-form">
+      <form name="checkout">
+        <input type="hidden" name="orderDate" id="orderDate">
+
+        <fieldset>
+          <legend>Name and Address</legend>
+          <div class="checkout__name">
+            <label for="fname">First Name</label>
+            <input type="text" name="fname" id="fname" required>
+            <label for="lname">Last Name</label>
+            <input type="text" name="lname" id="lname" required>
+          </div>
+          <div class="checkout__address">
+            <label for="street">Street Address</label>
+            <input type="text" name="street" id="street" required>
+            <label for="city">City</label>
+            <input type="text" name="city" id="city" required>
+            <label for="state">State</label>
+            <input type="text" name="state" id="state" required>
+            <label for="zip">Zip</label>
+            <input type="text" name="zip" id="zip" required>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Payment</legend>
+          <div class="checkout__payment">
+            <label for="cardNumber">Card Number</label>
+            <input type="text" name="cardNumber" id="cardNumber" required value="1234123412341234">
+            <label for="expiration">Expiration</label>
+            <input type="text" name="expiration" id="expiration" required value="01/2030">
+            <label for="code">CVV</label>
+            <input type="text" name="code" id="code" required value="123">
+          </div>
+        </fieldset>
+
+        <fieldset class="checkout-summary">
+          <legend>Order Summary</legend>
+
+          <div class="order__summary">
+            <div>Items</div>
+            <div id="num-items"></div>
+            <div>Subtotal</div>
+            <div id="cartTotal"></div>
+            <div>Tax</div>
+            <div id="tax">-</div>
+            <div>Shipping</div>
+            <div id="shipping">-</div>
+            <div>Total</div>
+            <div id="orderTotal">-</div>
+          </div>
+          <button type="submit" id="checkoutSubmit">Checkout</button>
+        </fieldset>
+      </form>
+    </section>
+  </main>
+  <footer id="main-footer"></footer>
+</body>
+
 </html>

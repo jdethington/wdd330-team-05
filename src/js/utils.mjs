@@ -29,11 +29,17 @@ export function setClick(selector, callback) {
 export function getParam(param) {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const product = urlParams.get(param)
+  const product = urlParams.get(param);
   return product;
 }
 
-export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = false) {
+export function renderListWithTemplate(
+  templateFn,
+  parentElement,
+  list,
+  position = "afterbegin",
+  clear = false,
+) {
   const htmlStrings = list.map(templateFn);
   // if clear is true we need to clear out the contents of the parent.
   if (clear) {
@@ -48,8 +54,9 @@ export function cartSuperscript() {
   const cartItems = getLocalStorage("so-cart") || [];
   let superscript = 0;
   if (Array.isArray(cartItems)) {
-    cartItems.forEach(item => {
-      superscript += (item && typeof item.quantity === 'number') ? item.quantity : 1;
+    cartItems.forEach((item) => {
+      superscript +=
+        item && typeof item.quantity === "number" ? item.quantity : 1;
     });
   }
   const badge = document.querySelector(".cart-count");
@@ -88,4 +95,11 @@ export async function loadHeaderFooter() {
 
   renderWithTemplate(footerTemplate, footerElement);
   cartSuperscript();
+}
+// Returns a number in US currency format "$12.34" "$1,234.56"
+export function formatCurrency(value) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(value);
 }
