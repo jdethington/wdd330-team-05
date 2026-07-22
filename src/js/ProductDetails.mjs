@@ -65,7 +65,7 @@ export function getDiscountInfo(product) {
 
 
 // Returns a number in US currency format "$12.34"
-function formatCurrency(value) {
+export function formatCurrency(value) {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD"
