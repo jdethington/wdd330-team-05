@@ -3,6 +3,7 @@ import {
   setLocalStorage,
   cartSuperscript,
   formatCurrency,
+  alertMessage,
 } from "./utils.mjs";
 
 // Default CLASS
@@ -39,6 +40,7 @@ export default class ProductDetails {
     }
     setLocalStorage("so-cart", cartItems);
     cartSuperscript();
+    alertMessage(`${this.product.NameWithoutBrand} added to cart!`);
   }
 
   renderProductDetails() {
