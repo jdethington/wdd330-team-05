@@ -1,5 +1,7 @@
 import { renderListWithTemplate } from "./utils.mjs";
 
+import { getDiscountInfo } from "./ProductDetails.mjs";
+
 // The class "ProductList"
 export default class ProductList {
     constructor(category, dataSource, listElement) {
@@ -12,9 +14,12 @@ export default class ProductList {
     async init() {
         const list = await this.dataSource.getData(this.category);
         this.products = list; // make a copy so we can use it for sorting
-        // console.log(this.products);
         this.renderList(list);
-        document.querySelector(".title").textContent = this.category;
+
+        const titleElement = document.querySelector(".title");
+        if (titleElement) {
+            titleElement.textContent = formatCategory(this.category);
+        }
     }
 
     renderList(list) {
@@ -38,13 +43,25 @@ export default class ProductList {
 }
 
 
+function formatCategory(category) {
+    if (!category) return "Products";
+
+    return category
+        .split("-")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+}
+
 // Template used to display product
 function productCardTemplate(product) {
-    const image = product.Images.PrimaryMedium;
+    const image = product.Images?.PrimaryMedium || product.Image;
     const id = product.Id;
+    const discountInfo = getDiscountInfo(product);
 
+    
     return `
         <li class="product-card">
+
         <a href="/product_pages/index.html?product=${id}">
             <img src="${image}" alt="${product.Name}">
             <h3 class="card__brand">${product.Brand.Name}</h3>
