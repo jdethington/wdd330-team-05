@@ -100,7 +100,9 @@ p {
   color: var(--tertiary-color);
 }
 
-button {
+button,
+.checkout-button,
+.cart-card__remove {
   padding: 0.5em 2em;
   background-color: var(--secondary-color);
   color: white;
@@ -110,6 +112,8 @@ button {
   border: 0;
   font-size: var(--large-font);
   cursor: pointer;
+  text-decoration: none;
+  text-align: center;
 }
 
 .divider {
@@ -369,6 +373,7 @@ button {
     grid-template-columns: 1fr;
   }
 }
+
 form {
   margin: 1rem;
   background-color: var(--primary-color);
