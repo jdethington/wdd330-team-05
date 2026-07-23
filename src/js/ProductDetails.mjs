@@ -1,13 +1,18 @@
-import { getLocalStorage, setLocalStorage, cartSuperscript } from "./utils.mjs";
+import {
+  getLocalStorage,
+  setLocalStorage,
+  cartSuperscript,
+  // formatCurrency,
+} from "./utils.mjs";
 
 // Default CLASS
 export default class ProductDetails {
-  constructor(productId, dataSource){
+  constructor(productId, dataSource) {
     this.productId = productId;
     this.product = {};
     this.dataSource = dataSource;
-  }  
-  
+  }
+
   async init() {
     // use the datasource to get the details for the current product. findProductById will return a promise! use await or .then() to process it
     this.product = await this.dataSource.findProductById(this.productId);
@@ -20,7 +25,7 @@ export default class ProductDetails {
       .addEventListener("click", this.addProductToCart.bind(this));
   }
 
-addProductToCart() {
+  addProductToCart() {
     let cartItems = getLocalStorage("so-cart");
     if (!Array.isArray(cartItems)) {
       cartItems = [];
@@ -37,9 +42,9 @@ addProductToCart() {
   }
 
   renderProductDetails() {
-  const mainElement = document.querySelector("main");
+    const mainElement = document.querySelector("main");
     if (mainElement) {
-    mainElement.innerHTML = productDetailsTemplate(this.product);
+      mainElement.innerHTML = productDetailsTemplate(this.product);
     }
   }
 }
@@ -51,14 +56,15 @@ export function getDiscountInfo(product) {
   const suggestedRetailPrice = Number(product.SuggestedRetailPrice);
   const finalPrice = Number(product.FinalPrice);
 
-  if (Number.isNaN(suggestedRetailPrice) || Number.isNaN(finalPrice)) return null;
+  if (Number.isNaN(suggestedRetailPrice) || Number.isNaN(finalPrice))
+    return null;
   if (finalPrice >= suggestedRetailPrice) return null;
 
   const amount = Number((suggestedRetailPrice - finalPrice).toFixed(2));
 
   return {
     amount,
-    message: `Save $${amount.toFixed(2)}!`
+    message: `Save $${amount.toFixed(2)}!`,
   };
 }
 
@@ -74,7 +80,8 @@ function formatCurrency(value) {
 
 // Returns a template for the product to be displayed
 function productDetailsTemplate(product) {
-  console.log(product)
+  console.log("Product: ", product);
+
   const brandName = product.Brand ? product.Brand.Name : "Sleep Outside";
   const colorName = (product.Colors && product.Colors[0]) ? product.Colors[0].ColorName : "Standard";
   const image = product.Images?.PrimaryLarge || product.Image;
@@ -83,14 +90,15 @@ function productDetailsTemplate(product) {
   console.log("Suggested:", product.SuggestedRetailPrice);
   console.log("Final:", product.FinalPrice);
   console.log("Discount:", discountInfo);
-  const discountFlag = discountInfo 
-  ? `
-    <div class = "discount-flag">
-       SAVE ${formatCurrency(discountInfo.amount)}
-    </div>
-    `
-    :"";
-  
+
+  const discountFlag = discountInfo
+    ? `
+      <div class="discount-flag">
+        SAVE ${formatCurrency(discountInfo.amount)}
+      </div>
+      `
+    : "";
+
   // If "FinalPrice" < "SuggestedRetailPrice" = Display discount
   if (discountInfo) {
     const finalPrice = formatCurrency(product.FinalPrice);
@@ -112,7 +120,6 @@ function productDetailsTemplate(product) {
       </div>
     </section>
     `;
-
   } else {
     return `
     <section class="product-detail">
@@ -129,8 +136,6 @@ function productDetailsTemplate(product) {
     </section>
     `;
   }
-
- 
 }
 
 // ************* Alternative Display Product Details Method *******************
@@ -167,5 +172,3 @@ function productDetailsTemplate(product) {
 
 //   document.getElementById("addToCart").dataset.id = product.Id;
 // }
-
-
