@@ -1,7 +1,7 @@
 import { getLocalStorage, setLocalStorage, cartSuperscript } from "./utils.mjs";
-import ProductData from "./ProductData.mjs"
+import ExternalServices from "./ExternalServices.mjs"
 
-const services = new ProductData();
+const services = new ExternalServices();
 
 function formDataToJSON(formElement) {
     // convert the form data to a JSON object
@@ -52,7 +52,7 @@ export default class CheckoutProcess {
         const quantities = this.list.map((item) => item.quantity || 1);
         // reduce to sum them up
         const totalItems = quantities.reduce((sum, qty) => sum + qty, 0);
-        itemNumElement.innerText = "test";
+        itemNumElement.innerText = totalItems;
 
         // calculate the total of all the items in the cart
         const amounts = this.list.map((item) => item.FinalPrice * item.quantity);
@@ -81,7 +81,6 @@ export default class CheckoutProcess {
         const orderTotal = document.querySelector(`${this.outputSelector} #orderTotal`);
 
         tax.innerText = `$${this.tax.toFixed(2)}`;
-        console.log(`$${this.tax.toFixed(2)}`);
         shipping.innerText = `$${this.shipping.toFixed(2)}`;
         orderTotal.innerText = `$${this.orderTotal.toFixed(2)}`;
     }
@@ -91,11 +90,11 @@ export default class CheckoutProcess {
         const order = formDataToJSON(formElement);
 
         order.orderDate = new Date().toISOString();
-        order.orderTotal = this.orderTotal;
-        order.tax = this.tax;
+        order.orderTotal = String(this.orderTotal);
+        order.tax = String(this.tax.toFixed(2));
         order.shipping = this.shipping;
         order.items = packageItems(this.list);
-        //console.log(order);
+        console.log("order payload being sent:", order);
 
         try {
             const response = await services.checkout(order);
