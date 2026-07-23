@@ -2,7 +2,7 @@ import {
   getLocalStorage,
   setLocalStorage,
   cartSuperscript,
-  formatCurrency,
+  // formatCurrency,
 } from "./utils.mjs";
 
 // Default CLASS
@@ -85,24 +85,20 @@ function productDetailsTemplate(product) {
   const brandName = product.Brand ? product.Brand.Name : "Sleep Outside";
   const colorName = (product.Colors && product.Colors[0]) ? product.Colors[0].ColorName : "Standard";
   const image = product.Images?.PrimaryLarge || product.Image;
-  const colorName =
-    product.Colors && product.Colors[0]
-      ? product.Colors[0].ColorName
-      : "Standard";
-  const image = product.Images.PrimaryLarge;
 
   const discountInfo = getDiscountInfo(product);
   console.log("Suggested:", product.SuggestedRetailPrice);
   console.log("Final:", product.FinalPrice);
   console.log("Discount:", discountInfo);
-  const discountFlag = discountInfo 
-  ? `
-    <div class = "discount-flag">
-       SAVE ${formatCurrency(discountInfo.amount)}
-    </div>
-    `
-    :"";
-  
+
+  const discountFlag = discountInfo
+    ? `
+      <div class="discount-flag">
+        SAVE ${formatCurrency(discountInfo.amount)}
+      </div>
+      `
+    : "";
+
   // If "FinalPrice" < "SuggestedRetailPrice" = Display discount
   if (discountInfo) {
     const finalPrice = formatCurrency(product.FinalPrice);
@@ -140,8 +136,6 @@ function productDetailsTemplate(product) {
     </section>
     `;
   }
-
- 
 }
 
 // ************* Alternative Display Product Details Method *******************
