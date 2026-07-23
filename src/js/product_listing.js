@@ -18,7 +18,6 @@ listing.init();
 const sortSelect = document.querySelector("#sort-select");
 
 sortSelect.addEventListener("change", (e) => {
-    const criteria = e.target.value;
-    listing.sortList(criteria);
+  const criteria = e.target.value;
+  listing.sortList(criteria);
 });
-
