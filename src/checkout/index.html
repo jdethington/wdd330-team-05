@@ -24,7 +24,7 @@
 
       <section class="client-info">
 
-        <form action="" method="post">
+        <form action="" method="post" id="checkout-form">
            <div class="checkout-form">
               <label for="fname">First Name</label>
               <input type="text" 
@@ -80,13 +80,12 @@
               
            </div>
 
-           <div class="chechout-form">
+           <div class="checkout-form">
               <label for="zip">Zip Code</label>
               <input type="text"
                     name="zip"
                     id="zip"
                     inputmode="numeric"
-                    pattern="[0-9]{5}(-[0-9]{4})?"
                     autocomplete="postal-code"
                     required
               />
@@ -98,6 +97,7 @@
                name="cardNumber" 
                id="credit-card"
                inputmode="numeric"
+               value="1234123412341234"
                pattern="[0-9\s]{13,19}"
                autocomplete="cc-number"
                required/>
@@ -105,18 +105,19 @@
 
            </div>
 
-           <div class="check-out">
+           <div class="checkout-form">
               <label for="expiration-date">Expiration Date</label>
               <input type="text" 
                 name="expiration" 
                 id="expiration-date"
                 placeholder="MM/YY"
+                value="12/28"
                 pattern="(0[1-9]|1[0-2])\/[0-9]{2}"
                 autocomplete="cc-exp"
                 required/>
            </div>
 
-           <div class="check-out">
+           <div class="checkout-form">
               <label for="code">Security Code</label>
               <input type="text" 
                id="code"
@@ -124,6 +125,7 @@
                inputmode="numeric"
                pattern="[0-9]{3,4}"
                maxlength="4"
+               value="123"
                autocomplete="cc-csc"
                required 
                />
@@ -139,12 +141,12 @@
           <p>Subtotal: <span id="subtotal"></span></p>
           <p>Tax : <span id="tax"></span></p>
           <p>Shipping Estimate: <span id="shipping"></span></p>
-          <p>Order Total: <span id="total"></span></p>
+          <p>Order Total: <span id="orderTotal"></span></p>
 
         </fieldset>
             
 
-        </div>
+        
 
 
 

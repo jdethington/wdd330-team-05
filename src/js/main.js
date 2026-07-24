@@ -7,7 +7,7 @@ loadHeaderFooter();
 
 setTimeout(alert, alertWaitTime);
 
-// const dataSource = new ProductData("tents");
+// const dataSource = new ExternalServices("tents");
 // const element = document.querySelector(".product-list");
 
 // const productList = new ProductList("tents", dataSource, element);

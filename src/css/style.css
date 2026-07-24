@@ -418,3 +418,32 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
+
+
+
+ .client-info {
+
+     background-color: #8a470c;
+     border-radius: 15px;
+     padding:20px;
+     display:flex;
+     flex-direction: column;
+
+     
+
+}
+
+.checkout-form {
+
+  display: flex;
+  flex-direction: column;
+}
+
+.checkout-form input {
+    
+  width: 500px;
+  margin: 20px;
+  height: 5vh;
+  border-radius: 15px;
+}
+
