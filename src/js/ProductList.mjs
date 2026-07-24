@@ -68,6 +68,7 @@ function productCardTemplate(product) {
             <p>${product.NameWithoutBrand}</p>
             <p class="product-card__price">$${product.FinalPrice}</p>
             </a>
+            <button type="button" class="openBtn" data-product-id="${id}">Quick View</button>
             </li>
         `;
 }
