@@ -133,6 +133,8 @@ function productDetailsTemplate(product) {
  
 }
 
+export {productDetailsTemplate};
+
 // ************* Alternative Display Product Details Method *******************
 //  function productDetailsTemplate(product) {
 //   document.querySelector("h2").textContent = product.Brand.Name;

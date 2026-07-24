@@ -31,21 +31,26 @@ export default class ShoppingCart {
 
     // If items in cart - Displays (Renders) each item.  If cart empty - Display "Cart Empty"
     renderCartContents() {
-        const cartItems = getLocalStorage("so-cart") || [];
-        const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+       const cartItems = getLocalStorage("so-cart") || [];
 
-        if (cartItems.length === 0) {
-            document.querySelector(".product-list").textContent = "Cart empty";
-            document.querySelector(".cart-footer").classList.add("hide");
+  if (cartItems.length === 0) {
+    document.querySelector(".product-list").textContent = "Cart empty";
+    document.querySelector(".cart-footer").classList.add("hide");
+  } else {
+    renderListWithTemplate(cartItemTemplate, this.listElement, cartItems, "afterbegin", true);
 
-        } else {
-            renderListWithTemplate(cartItemTemplate, this.listElement, cartItems, "afterbegin", true);
-            const total = cartItems.reduce((sum, item) => sum + item.FinalPrice * (item.quantity || 1), 0).toFixed(2);
-            document.querySelector(".cart-total").innerHTML = `Total: $${total}`;
-            document.querySelector(".cart-footer").classList.remove("hide");
-        }
-        cartSuperscript();
-    }
+    const total = cartItems.reduce((sum, item) => {
+      const price = Number(item.FinalPrice) || 0;
+      const quantity = item.quantity || 1;
+      return sum + price * quantity;
+    }, 0).toFixed(2);
+
+    document.querySelector(".cart-total").innerHTML = `Total: $${total}`;
+    document.querySelector(".cart-footer").classList.remove("hide");
+  }
+
+  cartSuperscript();
+}
 
     // Removes an item from the cart
     removeFromCart(id) {
@@ -75,34 +80,37 @@ export default class ShoppingCart {
 
 // This is how each "item" in the cart will be displayed (Rendered) on the page
 function cartItemTemplate(item) {
-    const newItem = `<li class="cart-card divider">
-  <span class="cart-card__remove" data-id="${item.Id}">x</span>
-  
-  <a href="#" class="cart-card__image">
-    <img
-      src="${item.Images.PrimaryMedium}"
-      alt="${item.Name}"
-    />
-  </a>
-  <a href="#">
-    <h2 class="card__name">${item.Name}</h2>
-  </a>
-  <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <label class="cart-card__quantity"> 
-    Quantity: 
-    <input 
-    type="number"
-    min="1"
-    value="${item.quantity || 1}"
-    class="cart-qty-input"
-    data-id="${item.Id}"
-    >
-  
-  </label>
-  <p class="cart-card__price">$${item.FinalPrice}</p>
-</li>`;
+  const image = item.Images?.PrimaryMedium || item.Image || "/images/noun_Tent_2517.svg";
+  const colorName = item.Colors?.[0]?.ColorName || "Standard";
+  const price = Number(item.FinalPrice) || 0;
+  const quantity = item.quantity || 1;
 
-    return newItem;
+  return `
+    <li class="cart-card divider">
+      <span class="cart-card__remove" data-id="${item.Id}">x</span>
+
+      <a href="#" class="cart-card__image">
+        <img src="${image}" alt="${item.Name}" />
+      </a>
+
+      <a href="#">
+        <h2 class="card__name">${item.Name}</h2>
+      </a>
+
+      <p class="cart-card__color">${colorName}</p>
+
+      <label class="cart-card__quantity">
+        Quantity:
+        <input
+          type="number"
+          min="1"
+          value="${quantity}"
+          class="cart-qty-input"
+          data-id="${item.Id}"
+        >
+      </label>
+
+      <p class="cart-card__price">$${price.toFixed(2)}</p>
+    </li>
+  `;
 }
-
-
