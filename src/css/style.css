@@ -163,6 +163,26 @@ button,
   /* margin: 0.5rem; */
   padding: 1rem;
   position: relative;
+  background-color: var(--primary-color);
+  color: black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.alert p {
+  margin: 0;
+}
+
+.alert span {
+  cursor: pointer;
+  font-weight: bold;
+  padding-left: 1rem;
+  user-select: none;
+}
+
+.alert span:hover {
+  opacity: 0.7;
 }
 
 .delete-button {
@@ -239,7 +259,7 @@ button,
 }
 
 .display-products img {
-    margin-left: 100px;
+  margin-left: 100px;
 }
 
 .product-list {
@@ -254,13 +274,11 @@ button,
   color: var(--dark-grey);
 }
 
-  .product-list .sort-select {
-   
+.product-list .sort-select {
   border-radius: 15px;
   border-style: double;
   border-width: 10px;
   box-sizing: border-box;
-
 }
 
 /* Styles for product lists */
@@ -295,24 +313,23 @@ button,
   position: relative;
 }
 
-
 .discount-flag {
-    position: absolute;
+  position: absolute;
 
-    top: 80px;
-    left: 20px;
+  top: 80px;
+  left: 20px;
 
-    background: rgb(100, 20, 220);
-    color: white;
+  background: rgb(100, 20, 220);
+  color: white;
 
-    padding: 8px 15px;
+  padding: 8px 15px;
 
-    font-size: 1rem;
-    font-weight: bold;
+  font-size: 1rem;
+  font-weight: bold;
 
-    border-radius: 5px;
+  border-radius: 5px;
 
-    z-index: 100;
+  z-index: 100;
 }
 
 .product-detail img {
@@ -403,6 +420,7 @@ button,
   display: grid;
   gap: 1rem;
   grid-template-columns: 1fr 1fr;
+
   @media screen and (max-width: 800px) {
     grid-template-columns: 1fr;
   }
@@ -445,6 +463,7 @@ form {
     color: var(--dark-grey);
     width: 100%;
   }
+
   input:required,
   select:required {
     border-left-color: #d70000;
@@ -464,6 +483,7 @@ form {
     font-size: 1.2rem;
     width: 100%;
   }
+
   button {
     /* max-width: 25rem; */
     width: 100%;
@@ -474,12 +494,15 @@ form {
 
 fieldset.checkout-summary {
   padding: 1rem;
+
   > div {
     display: grid;
     grid-template-columns: 1fr 1fr;
+
     div {
       padding: 1rem 0;
       font-size: 1.5rem;
+
       &:nth-child(even) {
         text-align: end;
       }

@@ -2,6 +2,7 @@ import {
   getLocalStorage,
   setLocalStorage,
   cartSuperscript,
+  alertMessage
   // formatCurrency,
 } from "./utils.mjs";
 
@@ -26,6 +27,7 @@ export default class ProductDetails {
   }
 
   addProductToCart() {
+    alertMessage("Item added to cart!", false);  // add an alert to the top of the screen
     let cartItems = getLocalStorage("so-cart");
     if (!Array.isArray(cartItems)) {
       cartItems = [];
