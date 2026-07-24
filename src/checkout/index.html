@@ -37,7 +37,13 @@
               <label for="state">State</label>
               <input type="text" name="state" id="state" required />
               <label for="zip">Zip</label>
-              <input type="text" name="zip" id="zip" required />
+              <input
+                type="text"
+                name="zip"
+                id="zip"
+                required
+                pattern="^\d{5}$"
+              />
             </div>
           </fieldset>
 
@@ -61,7 +67,14 @@
                 value="01/2030"
               />
               <label for="code">CVV</label>
-              <input type="text" name="code" id="code" required value="123" />
+              <input
+                type="text"
+                name="code"
+                id="code"
+                required
+                value="123"
+                pattern="^\d{3,4}$"
+              />
             </div>
           </fieldset>
 

@@ -15,5 +15,11 @@ document
 document.querySelector("#checkoutSubmit").addEventListener("click", (e) => {
   e.preventDefault();
 
-  order.checkout();
+  const myForm = document.forms["checkout"] || document.forms[0];
+  const chk_status = myForm.checkValidity(); // checks all HTML rules
+  myForm.reportValidity(); // triggers the browser error popups
+
+  if (chk_status) {
+    order.checkout(); // only runs if all html rules pass
+  }
 });

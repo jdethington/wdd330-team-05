@@ -103,3 +103,35 @@ export function formatCurrency(value) {
     currency: "USD",
   }).format(value);
 }
+
+export function alertMessage(message, scroll = true) {
+  // create element to hold the alert
+  const alert = document.createElement("div");
+  // add a class to style the alert
+  alert.classList.add("alert");
+  // set the contents + a close button (X)
+  alert.innerHTML = `<p>${message}</p><span>X</span>`;
+
+  alert.addEventListener("click", function (e) {
+    // check if the clicked element (e.target) is the 'X' span
+    if (e.target.tagName == "SPAN" || e.target.innerText === "X") {
+      alert.remove()
+    }
+  });
+
+  // add to the top of <main> so it's the first element
+  const main = document.querySelector("main");
+  if (main) {
+    main.prepend(alert);
+  }
+
+  // scroll to the top if requested
+  if (scroll) {
+    window.scrollTo(0, 0);
+  }
+}
+
+export function removeAllAlerts() {
+  const alerts = document.querySelectorAll(".alert");
+  alerts.forEach((alert) => alert.remove());
+}
