@@ -38,6 +38,14 @@ export default class ProductDetails {
       cartItems.push(productToAdd);
     }
     setLocalStorage("so-cart", cartItems);
+
+    const cartIcon = document.querySelector(".cart-icon");
+    cartIcon.classList.add("shake");
+
+    setTimeout(() => {
+      cartIcon.classList.remove("shake");
+    }, 500);
+
     cartSuperscript();
   }
 
