@@ -97,32 +97,33 @@ export default class ShoppingCart {
 
 // This is how each "item" in the cart will be displayed (Rendered) on the page
 function cartItemTemplate(item) {
-  const newItem = `<li class="cart-card divider">
-  <span class="cart-card__remove" data-id="${item.Id}">x</span>
-  
-  <a href="#" class="cart-card__image">
-    <img
-      src="${item.Images.PrimaryMedium}"
-      alt="${item.Name}"
-    />
-  </a>
-  <a href="#">
-    <h2 class="card__name">${item.Name}</h2>
-  </a>
-  <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <label class="cart-card__quantity"> 
-    Quantity: 
-    <input 
-    type="number"
-    min="1"
-    value="${item.quantity || 1}"
-    class="cart-qty-input"
-    data-id="${item.Id}"
-    >
-  
-  </label>
-  <p class="cart-card__price">$${item.FinalPrice}</p>
-</li>`;
+  const newItem = `
+  <li class="cart-card divider">
+    <span class="cart-card__remove" data-id="${item.Id}">
+      X Remove
+    </span>  
+    <a href="#" class="cart-card__image">
+      <img
+        src="${item.Images.PrimaryMedium}"
+        alt="${item.Name}"
+      />
+    </a>
+    <a href="#">
+      <h2 class="card__name">${item.Name}</h2>
+    </a>
+    <p class="cart-card__color">${item.Colors[0].ColorName}</p>
+    <label class="cart-card__quantity"> 
+      Quantity: 
+      <input 
+      type="number"
+      min="1"
+      value="${item.quantity || 1}"
+      class="cart-qty-input"
+      data-id="${item.Id}"
+      >
+    </label>
+    <p class="cart-card__price">$${item.FinalPrice}</p>
+  </li>`;
 
   return newItem;
 }
