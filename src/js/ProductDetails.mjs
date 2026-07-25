@@ -2,7 +2,6 @@ import {
   getLocalStorage,
   setLocalStorage,
   cartSuperscript,
-  formatCurrency,
   alertMessage,
 } from "./utils.mjs";
 
