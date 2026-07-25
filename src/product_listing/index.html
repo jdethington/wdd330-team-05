@@ -10,6 +10,7 @@
 
   <body>
     <header class="divider" id="main-header"></header>
+      
     <main class="divider">
       <section id="product-list" class="products">
         <h2>Top Products: <span class="title highlight"></span></h2>
@@ -21,9 +22,47 @@
             <option value="price">Price (Low to High)</option>
           </select>
         </div>
+
         <ul class="product-list"></ul>
+
+        <div class="display-products">
+          <a href="/product_listing/index.html?category=tents">
+            <img
+              src="/images/category-tents.svg"
+              alt="Category tents"
+              width="110"
+            />
+          </a>
+          <a href="/product_listing/index.html?category=backpacks">
+            <img
+              src="/images/category-backpacks.svg"
+              alt="Backpack"
+              width="110"
+            />
+          </a>
+          <a href="/product_listing/index.html?category=sleeping-bags">
+            <img
+              src="/images/category-sleepingbags.svg"
+              alt="Sleeping bag"
+              width="110"
+            />
+          </a>
+          <a href="/product_listing/index.html?category=hammocks">
+            <img
+              src="/images/category-hammocks.svg"
+              alt="Hammocks"
+              width="100"
+            />
+          </a>
+        </div>
       </section>
     </main>
+
+    <dialog id="myModal">
+      <div id="modalContent"></div>
+      <button type="button" id="closeBtn">X</button>
+    </dialog>
+    
     <footer id="main-footer"></footer>
   </body>
 </html>
