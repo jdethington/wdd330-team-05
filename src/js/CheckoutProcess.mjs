@@ -22,7 +22,7 @@
 //   }
 // }
 
-import { getLocalStorage, formatCurrency } from "./utils.mjs";
+import { getLocalStorage, formatCurrency, alertMessage } from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 
 const services = new ExternalServices();
@@ -44,9 +44,10 @@ function packageItems(items) {
       id: item.Id,
       price: item.FinalPrice,
       name: item.Name,
-      quantity: 1,
+      quantity: item.quantity,
     };
   });
+  console.log(simplifiedItems);
   return simplifiedItems;
 }
 
@@ -133,8 +134,69 @@ export default class CheckoutProcess {
     try {
       const response = await services.checkout(order);
       console.log(response);
+      if (response) {
+        localStorage.removeItem("so-cart");
+        // window.location.href = "success.html";
+        location.assign("/checkout/success.html");
+      }
     } catch (err) {
+      for (let message in err.message) {
+        alertMessage(err.message[message]);
+      }
       console.log(err);
     }
+  }
+  checkValidity(form) {
+    // === Basic Validation ===
+    let isValid = true;
+    let errorMessages = [];
+
+    // Name fields
+    if (!form.fname.value.trim()) {
+      isValid = false;
+      errorMessages.push("First Name is required");
+    }
+    if (!form.lname.value.trim()) {
+      isValid = false;
+      errorMessages.push("Last Name is required");
+    }
+
+    // Address fields
+    if (!form.street.value.trim())
+      errorMessages.push("Street Address is required");
+    if (!form.city.value.trim()) errorMessages.push("City is required");
+    if (!form.state.value.trim()) errorMessages.push("State is required");
+    if (!form.zip.value.trim()) errorMessages.push("Zip Code is required");
+
+    // Payment fields
+    const card = form.cardNumber.value.trim();
+    if (!card || card.length < 13) {
+      errorMessages.push("Valid Card Number is required");
+    }
+
+    const exp = form.expiration.value.trim();
+    if (!exp || !/^\d{2}\/\d{4}$/.test(exp)) {
+      errorMessages.push("Expiration must be in MM/YYYY format (e.g. 01/2030)");
+    }
+
+    const cvv = form.code.value.trim();
+    if (!cvv || cvv.length < 3) {
+      errorMessages.push("Valid CVV is required");
+    }
+
+    // Show errors if any
+    if (!isValid || errorMessages.length > 0) {
+      let time = 3000;
+      errorMessages.forEach((error) => {
+        alertMessage(error, true, time);
+        time += 500;
+      });
+      return;
+    }
+
+    // === If validation passes ===
+    alertMessage(
+      "✅ All fields validated successfully!\n\nOrder is being processed...",
+    );
   }
 }
