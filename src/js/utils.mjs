@@ -103,3 +103,30 @@ export function formatCurrency(value) {
     currency: "USD",
   }).format(value);
 }
+
+
+
+export function alertMessage(message, scroll = true) {
+  // 1. Create alert element
+  const alert = document.createElement("div");
+  alert.classList.add("alert");
+
+  // 2. Set content (Proper </p> tag & 'X' inside <span>)
+  alert.innerHTML = `<p>${message}</p><span>X</span>`;
+
+  // 3. Add close button listener
+  alert.addEventListener("click", function (e) {
+    if (e.target.tagName === "SPAN" || e.target.innerText === "X") {
+      main.removeChild(this);
+    }
+  });
+
+  // 4. Select <main> and insert alert at the top
+  const main = document.querySelector("main");
+  main.prepend(alert);
+
+  // 5. Scroll to top if requested
+  if (scroll) {
+    window.scrollTo(0, 0);
+  }
+}
