@@ -104,15 +104,14 @@ export function formatCurrency(value) {
   }).format(value);
 }
 
-
-
-export function alertMessage(message, scroll = true) {
+export function alertMessage(message, scroll = true, duration = 3000) {
   // 1. Create alert element
   const alert = document.createElement("div");
   alert.classList.add("alert");
+  alert.classList.add("form-alert");
 
   // 2. Set content (Proper </p> tag & 'X' inside <span>)
-  alert.innerHTML = `<p>${message}</p><span>X</span>`;
+  alert.innerHTML = `<p class="alert form-alert">${message}</p><span class="delete-button">X</span>`;
 
   // 3. Add close button listener
   alert.addEventListener("click", function (e) {
@@ -129,4 +128,8 @@ export function alertMessage(message, scroll = true) {
   if (scroll) {
     window.scrollTo(0, 0);
   }
+  
+  setTimeout(() => {
+    main.removeChild(alert);
+  }, duration);
 }
