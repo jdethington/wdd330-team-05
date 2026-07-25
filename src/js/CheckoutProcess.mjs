@@ -144,6 +144,15 @@ export default class CheckoutProcess {
         alertMessage(err.message[message]);
       }
       console.log(err);
+      
+      // If server returns multiple error messages in an object
+      if (typeof err.message === "object") {
+        for (const key in err.message) {
+          alertMessage(err.message[key]);
+        }
+      } else {
+        alertMessage(err.message);
+      }
     }
   }
   checkValidity(form) {

@@ -3,6 +3,7 @@ import {
   setLocalStorage,
   cartSuperscript,
   alertMessage,
+  formatCurrency,
 } from "./utils.mjs";
 
 // Default CLASS
@@ -47,7 +48,7 @@ export default class ProductDetails {
     }, 500);
 
     cartSuperscript();
-    alertMessage(`${this.product.NameWithoutBrand} added to cart!`);
+    alertMessage(`${this.product.NameWithoutBrand} added to cart!`, false);
   }
 
   renderProductDetails() {
@@ -75,16 +76,6 @@ export function getDiscountInfo(product) {
     amount,
     message: `Save $${amount.toFixed(2)}!`,
   };
-}
-
-
-
-// Returns a number in US currency format "$12.34"
-function formatCurrency(value) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD"
-  }).format(value);
 }
 
 // Returns a template for the product to be displayed

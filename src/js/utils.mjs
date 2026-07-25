@@ -105,28 +105,30 @@ export function formatCurrency(value) {
 }
 
 export function alertMessage(message, scroll = true, duration = 3000) {
-  // create element to hold the alert
+  // 1. Create alert element
   const alert = document.createElement("div");
-  // add a class to style the alert
   alert.classList.add("alert");
   alert.classList.add("form-alert");
-  // set the contents. You should have a message and an X or something the user can click on to remove
+
+  // 2. Set content (Proper </p> tag & 'X' inside <span>)
   alert.innerHTML = `<p class="alert form-alert">${message}</p><span class="delete-button">X</span>`;
-  // add a listener to the alert to see if they clicked on the X
-  // if they did then remove the child
+
+  // 3. Add close button listener
   alert.addEventListener("click", function (e) {
-    if (e.target.tagName == "SPAN") {
-      // how can you tell if they clicked on the X or on something else?  hint: check out e.target.tagName or e.target.innerText
+    if (e.target.tagName === "SPAN" || e.target.innerText === "X") {
       main.removeChild(this);
     }
   });
-  // add the alert to the top of main
+
+  // 4. Select <main> and insert alert at the top
   const main = document.querySelector("main");
   main.prepend(alert);
-  // make sure they see the alert by scrolling to the top of the window
-  // you may not always want to do this...so default to scroll=true, but allow it to be passed in and overridden.
-  if (scroll) window.scrollTo(0, 0);
 
+  // 5. Scroll to top if requested
+  if (scroll) {
+    window.scrollTo(0, 0);
+  }
+  
   setTimeout(() => {
     main.removeChild(alert);
   }, duration);
