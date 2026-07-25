@@ -10,14 +10,14 @@
 
   <body>
     <header class="divider" id="main-header"></header>
-
+      
     <main class="divider">
       <section id="product-list" class="products">
         <h2>Top Products: <span class="title highlight"></span></h2>
-
         <div class="sort-by">
           <h3>Sort by</h3>
-          <select id="sort-select">
+          <label for="sort-select" class="hide">Sort by</label>
+          <select name="sort" id="sort-select">
             <option value="name">Name (A-Z)</option>
             <option value="price">Price (Low to High)</option>
           </select>
@@ -58,6 +58,11 @@
       </section>
     </main>
 
+    <dialog id="myModal">
+      <div id="modalContent"></div>
+      <button type="button" id="closeBtn">X</button>
+    </dialog>
+    
     <footer id="main-footer"></footer>
   </body>
 </html>

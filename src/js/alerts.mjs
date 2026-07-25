@@ -24,7 +24,7 @@ export default class Alerts {
     }
   }
 
-  displayAlerts(alerts) {
+  displayAlerts(alerts, duration = 5000) {
     const section = document.createElement("section");
     section.className = "alert-list";
 
@@ -49,5 +49,9 @@ export default class Alerts {
     });
     const main = document.querySelector("main");
     main.prepend(section);
+
+    setTimeout(() => {
+      main.removeChild(section);
+    }, duration);
   }
 }
