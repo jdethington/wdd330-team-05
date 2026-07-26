@@ -133,3 +133,23 @@ export function alertMessage(message, scroll = true, duration = 3000) {
     main.removeChild(alert);
   }, duration);
 }
+
+// Gets discount information
+export function getDiscountInfo(product) {
+  if (!product) return null;
+
+  const suggestedRetailPrice = Number(product.SuggestedRetailPrice);
+  const finalPrice = Number(product.FinalPrice);
+
+  if (Number.isNaN(suggestedRetailPrice) || Number.isNaN(finalPrice))
+    return null;
+  if (finalPrice >= suggestedRetailPrice) return null;
+
+  const amount = Number((suggestedRetailPrice - finalPrice).toFixed(2));
+
+  return {
+    amount,
+    message: `Save $${amount.toFixed(2)}!`,
+  };
+}
+
