@@ -4,6 +4,7 @@ import {
   cartSuperscript,
   alertMessage,
   formatCurrency,
+  getDiscountInfo,
 } from "./utils.mjs";
 
 // Default CLASS
@@ -59,31 +60,15 @@ export default class ProductDetails {
   }
 }
 
-// Does this function need to be exported?
-export function getDiscountInfo(product) {
-  if (!product) return null;
-
-  const suggestedRetailPrice = Number(product.SuggestedRetailPrice);
-  const finalPrice = Number(product.FinalPrice);
-
-  if (Number.isNaN(suggestedRetailPrice) || Number.isNaN(finalPrice))
-    return null;
-  if (finalPrice >= suggestedRetailPrice) return null;
-
-  const amount = Number((suggestedRetailPrice - finalPrice).toFixed(2));
-
-  return {
-    amount,
-    message: `Save $${amount.toFixed(2)}!`,
-  };
-}
-
 // Returns a template for the product to be displayed
 function productDetailsTemplate(product) {
   console.log("Product: ", product);
 
   const brandName = product.Brand ? product.Brand.Name : "Sleep Outside";
-  const colorName = (product.Colors && product.Colors[0]) ? product.Colors[0].ColorName : "Standard";
+  const colorName =
+    product.Colors && product.Colors[0]
+      ? product.Colors[0].ColorName
+      : "Standard";
   const image = product.Images?.PrimaryLarge || product.Image;
 
   const discountInfo = getDiscountInfo(product);
@@ -93,7 +78,7 @@ function productDetailsTemplate(product) {
 
   const discountFlag = discountInfo
     ? `
-      <div class="discount-flag">
+      <div class="discount flag">
         SAVE ${formatCurrency(discountInfo.amount)}
       </div>
       `
