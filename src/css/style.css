@@ -517,6 +517,7 @@ fieldset.checkout-summary {
   }
 }
 
+
 /* End Checkout Style */
 
 @media screen and (min-width: 500px) {
@@ -573,4 +574,68 @@ footer {
   90% {
     transform: translate(1px, 1px) rotate(1deg);
   }
+}
+
+
+
+.navbar {
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  
+}
+
+
+/* Container: Defines the wide width, small height, and border */
+/* Container: Defines wide width, small height, and overrides form padding/margins */
+.search-form {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 450px;
+  height: 36px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #ffffff;
+  overflow: hidden;
+
+  /* OVERRIDES FOR INHERITED FORM STYLES */
+  padding: 0; /* Prevents padding from squishing content height to 0px */
+  margin: 0;  /* Removes outer form margin */
+}
+
+/* Input Field: Takes up remaining horizontal space */
+.search-form input[type="search"] {
+  flex: 1;
+  height: 100%;
+  border: none;
+  outline: none;
+  padding: 0 12px;
+  font-size: 0.9rem;
+  background: transparent;
+}
+
+/* Search Icon Button: Resets button width, margin, and alignment */
+.search-form button {
+  height: 100%;
+  padding: 0 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #555;
+  transition: color 0.2s ease-in-out;
+
+  /* OVERRIDES FOR INHERITED BUTTON STYLES */
+  width: auto; /* Overrides 'width: 100%' from form button */
+  margin: 0;   /* Overrides 'margin-top: 1rem' and 'margin: auto' */
+}
+
+.search-form button:hover {
+  color: #000;
 }

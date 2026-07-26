@@ -33,6 +33,9 @@ export function getParam(param) {
   return product;
 }
 
+const searchQuery = getParam("search");
+console.log("Search query:", searchQuery);
+
 export function renderListWithTemplate(
   templateFn,
   parentElement,
