@@ -253,6 +253,7 @@ button,
   padding: 0.5em;
   border: 1px solid var(--light-grey);
   max-width: 250px;
+  position: relative;
 }
 
 .product-card h2,
@@ -278,11 +279,8 @@ button,
   position: relative;
 }
 
-.discount-flag {
+.flag {
   position: absolute;
-
-  top: 80px;
-  left: 20px;
 
   background: rgb(100, 20, 220);
   color: white;
@@ -295,6 +293,14 @@ button,
   border-radius: 5px;
 
   z-index: 100;
+}
+.discount {
+  top: 80px;
+  left: 20px;
+}
+.sale {
+  top: 10px;
+  right: 10px;
 }
 
 .product-detail img {
