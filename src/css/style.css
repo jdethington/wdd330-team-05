@@ -523,7 +523,6 @@ fieldset.checkout-summary {
   }
 }
 
-
 /* End Checkout Style */
 
 @media screen and (min-width: 500px) {
@@ -582,18 +581,13 @@ footer {
   }
 }
 
-
-
 .navbar {
-
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
   width: 100%;
-  
 }
-
 
 /* Container: Defines the wide width, small height, and border */
 /* Container: Defines wide width, small height, and overrides form padding/margins */
@@ -610,7 +604,7 @@ footer {
 
   /* OVERRIDES FOR INHERITED FORM STYLES */
   padding: 0; /* Prevents padding from squishing content height to 0px */
-  margin: 0;  /* Removes outer form margin */
+  margin: 0; /* Removes outer form margin */
 }
 
 /* Input Field: Takes up remaining horizontal space */
@@ -639,7 +633,7 @@ footer {
 
   /* OVERRIDES FOR INHERITED BUTTON STYLES */
   width: auto; /* Overrides 'width: 100%' from form button */
-  margin: 0;   /* Overrides 'margin-top: 1rem' and 'margin: auto' */
+  margin: 0; /* Overrides 'margin-top: 1rem' and 'margin: auto' */
 }
 
 .search-form button:hover {

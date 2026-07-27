@@ -45,9 +45,9 @@ async function initPage() {
       if (product) {
         modalContent.innerHTML = `
           <h2>${product.Name}</h2>
-          <img src="${product.Images?.PrimarySmall || ''}" alt="${product.Name}">
-          <p>Color: ${product.Colors?.[0]?.ColorName || 'N/A'}</p>
-          <div>${product.DescriptionHtmlSimple || ''}</div>
+          <img src="${product.Images?.PrimarySmall || ""}" alt="${product.Name}">
+          <p>Color: ${product.Colors?.[0]?.ColorName || "N/A"}</p>
+          <div>${product.DescriptionHtmlSimple || ""}</div>
           <p><strong>$${product.FinalPrice}</strong></p>
         `;
         modal.showModal();

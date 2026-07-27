@@ -4,60 +4,59 @@ import { renderListWithTemplate, getDiscountInfo } from "./utils.mjs";
 
 // The class "ProductList"
 export default class ProductList {
-    constructor(category, dataSource, listElement, searchQuery = "") {
-        this.category = category;
-        this.dataSource = dataSource;
-        this.listElement = listElement;
-        this.searchQuery = searchQuery;
-        this.products = [];
+  constructor(category, dataSource, listElement, searchQuery = "") {
+    this.category = category;
+    this.dataSource = dataSource;
+    this.listElement = listElement;
+    this.searchQuery = searchQuery;
+    this.products = [];
+  }
+
+  async init() {
+    let list = [];
+
+    // 1. Fetch from all categories if searching globally, or from single category
+    if (this.searchQuery && !this.category) {
+      const categories = ["tents", "backpacks", "sleeping-bags", "hammocks"];
+      const results = await Promise.all(
+        categories.map((cat) => this.dataSource.getData(cat)),
+      );
+      list = results.flat();
+    } else {
+      const categoryToFetch = this.category || "tents";
+      list = await this.dataSource.getData(categoryToFetch);
     }
 
-    async init() {
-        let list = [];
+    // 2. Safe filtering using optional chaining
+    if (this.searchQuery) {
+      const term = this.searchQuery.toLowerCase().trim();
+      list = list.filter((product) => {
+        const name = product.Name?.toLowerCase() || "";
+        const nameWithoutBrand = product.NameWithoutBrand?.toLowerCase() || "";
+        const brandName =
+          (typeof product.Brand === "string"
+            ? product.Brand
+            : product.Brand?.Name
+          )?.toLowerCase() || "";
 
-        // 1. Fetch from all categories if searching globally, or from single category
-        if (this.searchQuery && !this.category) {
-            const categories = ["tents", "backpacks", "sleeping-bags", "hammocks"];
-            const results = await Promise.all(
-                categories.map((cat) => this.dataSource.getData(cat))
-            );
-            list = results.flat();
-        } else {
-            const categoryToFetch = this.category || "tents";
-            list = await this.dataSource.getData(categoryToFetch);
-        }
+        return (
+          name.includes(term) ||
+          nameWithoutBrand.includes(term) ||
+          brandName.includes(term)
+        );
+      });
+    }
 
-        // 2. Safe filtering using optional chaining
-        if (this.searchQuery) {
-            const term = this.searchQuery.toLowerCase().trim();
-            list = list.filter((product) => {
-                const name = product.Name?.toLowerCase() || "";
-                const nameWithoutBrand = product.NameWithoutBrand?.toLowerCase() || "";
-                const brandName = (
-                    typeof product.Brand === "string"
-                        ? product.Brand
-                        : product.Brand?.Name
-                )?.toLowerCase() || "";
+    this.products = list;
+    this.renderList(list);
 
-                return (
-                    name.includes(term) ||
-                    nameWithoutBrand.includes(term) ||
-                    brandName.includes(term)
-                );
-            });
-        }
-
-        this.products = list;
-        this.renderList(list);
-
-        const titleElement = document.querySelector(".title");
-        if (titleElement) {
-            if (this.searchQuery) {
-                titleElement.textContent = `Search results for "${this.searchQuery}"`;
-            } else if (this.category) {
-                titleElement.textContent = formatCategory(this.category);
-            }
-        }
+    const titleElement = document.querySelector(".title");
+    if (titleElement) {
+      if (this.searchQuery) {
+        titleElement.textContent = `Search results for "${this.searchQuery}"`;
+      } else if (this.category) {
+        titleElement.textContent = formatCategory(this.category);
+      }
     }
   }
 
@@ -134,4 +133,5 @@ function productCardTemplate(product) {
         `;
   }
 }
+
 // <h2 class="card__name">${product.DescriptionHtmlSimple}</h2>
